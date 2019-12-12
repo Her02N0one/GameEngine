@@ -130,3 +130,5 @@ dmypy.json
 
 # repl.it files
 nohup.out
+.fluxbox/
+.local/
