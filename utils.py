@@ -76,7 +76,7 @@ class Entity:
     def set_texture(self, texture):
         self.image = pygame.image.load(texture)
 
-    def set_position(self, pos: tuple):
+    def set_position(self, pos):
         self.sprite.x = pos[0]
         self.sprite.y = pos[1]
 

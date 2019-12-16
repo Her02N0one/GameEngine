@@ -1,4 +1,5 @@
 import pygame
+import pygame.gfxdraw
 import utils
 from states import GameState
 
@@ -16,7 +17,7 @@ else:
     screen = pygame.display.set_mode(window_size)
     pygame.display.set_caption(title)
 
-running = True if pygame.display.get_active() else False
+running = True if pygame.display.get_surface() is not None else False
 
 # set up clock for limiting framerate and getting dt
 clock = pygame.time.Clock()
@@ -30,7 +31,8 @@ states.push(GameState(state_data))
 # ====== Main Game Loop ======
 
 while running:
-    dt = clock.tick(fps) / 1000
+    clock.tick(fps)
+    dt = clock.get_time()
 
     # Update
     for event in pygame.event.get():
@@ -51,6 +53,7 @@ while running:
         running = False
 
     # Render
+
     screen.fill((255, 255, 255))
 
     if not states.isEmpty():
