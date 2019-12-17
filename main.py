@@ -1,4 +1,5 @@
 import pygame
+
 import utils
 from states import GameState
 
@@ -25,7 +26,6 @@ dt = 0.0
 states = utils.Stack()  # Stack that holds all the States
 state_data = dict(screen=screen, states=states)
 states.push(GameState(state_data))
-
 
 # ====== Main Game Loop ======
 
@@ -59,6 +59,5 @@ while running:
         states.top().render()
 
     pygame.display.flip()
-
 
 pygame.quit()

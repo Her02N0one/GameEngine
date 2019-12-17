@@ -1,5 +1,6 @@
-import utils
 import pygame
+
+import utils
 
 
 class GameState(utils.State):

@@ -1,5 +1,3 @@
-
-
 def move(dir_x, dir_y, dt):
     pass
 
