@@ -21,7 +21,6 @@ class GameState(utils.State):
     def update(self, dt):
         self.update_mouse_positions()
 
-        print(self.mousePos)
         keys = pygame.key.get_pressed()
 
         self.player.update(dt, self.mousePos)
