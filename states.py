@@ -34,5 +34,3 @@ class GameState(utils.State):
             target = self.screen
 
         self.player.render(target)
-
-        # pygame.draw.rect(target, (255, 128, 128), pygame.Rect(30, 30, 200, 200))
