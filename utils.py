@@ -69,20 +69,19 @@ class State:
 class Entity:
 
     def __init__(self):
-        self.sprite = pygame.Rect(0, 0, 100, 100)
-        self.image = None
+        self.sprite = pygame.Rect(0, 0, 0, 0)
+        self.image = pygame.Surface((0, 0))
         # self.movementComponent = None
 
     def set_texture(self, texture):
         self.image = pygame.image.load(texture)
 
-    def set_position(self, pos):
-        self.sprite.x = pos[0]
-        self.sprite.y = pos[1]
+    def set_position(self, x, y):
+        self.sprite.x = x
+        self.sprite.y = y
 
     def set_size(self, width, height):
-        if self.image is not None:
-            self.image = pygame.transform.scale(self.image, (width, height))
+        self.image = pygame.transform.scale(self.image, (width, height))
         self.sprite.width = width
         self.sprite.height = height
 
@@ -92,7 +91,7 @@ class Entity:
     #         self.movementComponent.move(dir_x, dir_y, dt)
 
     def update(self, dt, mouse_pos):
-        raise NotImplementedError
+        assert 0, "update not implemented"
 
     def render(self, target, show_hitbox=False):
-        raise NotImplementedError
+        assert 0, "render not implemented"
