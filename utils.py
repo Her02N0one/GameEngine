@@ -71,10 +71,10 @@ class Entity:
     def __init__(self):
         self.sprite = pygame.Rect(0, 0, 0, 0)
         self.image = pygame.Surface((0, 0))
-        # self.movementComponent = None
 
     def set_texture(self, texture):
         self.image = pygame.image.load(texture)
+        self.set_size(*self.image.get_size())
 
     def set_position(self, x, y):
         self.sprite.x = x
@@ -85,12 +85,20 @@ class Entity:
         self.sprite.width = width
         self.sprite.height = height
 
-    # TODO: fix my movement component
-    # def move(self, dir_x, dir_y, dt):
-    #     if self.movementComponent is not None:
-    #         self.movementComponent.move(dir_x, dir_y, dt)
+    def scale(self, scale_factor):
+        pass
 
-    def update(self, dt, mouse_pos):
+    def get_size(self):
+        width = self.sprite.width
+        height = self.sprite.height
+        return width, height
+
+    def get_position(self):
+        x = self.sprite.x
+        y = self.sprite.y
+        return x, y
+
+    def update(self, dt, mousePos):
         assert 0, "update not implemented"
 
     def render(self, target, show_hitbox=False):

@@ -1,5 +1,4 @@
 import pygame
-
 import utils
 from states import GameState
 
@@ -28,11 +27,12 @@ states = utils.Stack()  # Stack that holds all the States
 state_data = dict(screen=screen, states=states)
 states.push(GameState(state_data))
 
+
 # ====== Main Game Loop ======
 
 while running:
     clock.tick(fps)
-    dt = clock.get_time()
+    dt = clock.get_time() / 1000
 
     # Update
     for event in pygame.event.get():
@@ -60,5 +60,6 @@ while running:
         states.top().render()
 
     pygame.display.flip()
+
 
 pygame.quit()
