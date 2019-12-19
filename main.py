@@ -5,11 +5,12 @@ from states import GameState
 
 # gets window data from config file
 with open("config/graphics.ini", "r") as f:
-    line = f.read().splitlines()
-    title = line[0]
-    window_size = tuple(map(int, line[1].split()))
-    fullscreen = int(line[2])
-    fps = int(line[3])
+    lines = f.read().splitlines()
+    lines = list(map(lambda s: s.split("#")[0], lines))
+    title = lines[0]
+    window_size = tuple(map(int, lines[1].split()))
+    fullscreen = int(lines[2])
+    fps = int(lines[3])
 
 if fullscreen:
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
