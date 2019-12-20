@@ -1,6 +1,7 @@
 import pygame
-import utils
+
 import entities
+import utils
 
 
 class GameState(utils.State):
@@ -24,8 +25,7 @@ class GameState(utils.State):
         keys = pygame.key.get_pressed()
 
         self.player.update(dt, self.mousePos)
-        print(self.mousePos)
-        if keys[pygame.K_v]:
+        if keys[pygame.K_ESCAPE]:
             self.end_state()
 
     def render(self, target=None):
