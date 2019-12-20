@@ -34,6 +34,10 @@ class State:
         self.mousePos = pygame.Vector2()
         self.quit = False
         self.target = None
+        self.events = None
+
+    def update_events(self, events):
+        self.events = events
 
     def get_quit(self):
         return self.quit
@@ -42,7 +46,7 @@ class State:
         self.quit = True
 
     def update_mouse_positions(self):
-        self.mousePos.update(pygame.mouse.get_pos())
+        self.mousePos.update(*pygame.mouse.get_pos())
 
     def on_enter(self):
         """
@@ -86,7 +90,9 @@ class Entity:
         self.sprite.height = height
 
     def scale(self, scale_factor):
-        pass
+        s_width = int(self.sprite.width * scale_factor)
+        s_height = int(self.sprite.height * scale_factor)
+        self.set_size(s_width, s_height)
 
     def get_size(self):
         width = self.sprite.width

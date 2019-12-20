@@ -36,6 +36,7 @@ while running:
 
     # Update
     for event in pygame.event.get():
+        states.top().update_events(event)
         if event.type == pygame.QUIT:
             running = False
 
@@ -54,7 +55,7 @@ while running:
 
     # Render
 
-    screen.fill((255, 255, 255))
+    screen.fill((0, 0, 0))
 
     if not states.isEmpty():
         states.top().render()

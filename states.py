@@ -24,7 +24,7 @@ class GameState(utils.State):
         keys = pygame.key.get_pressed()
 
         self.player.update(dt, self.mousePos)
-
+        print(self.mousePos)
         if keys[pygame.K_v]:
             self.end_state()
 
