@@ -1,4 +1,5 @@
 import pygame
+
 import utils
 from states import GameState
 
@@ -18,6 +19,7 @@ else:
     pygame.display.set_caption(title)
 
 running = True if pygame.display.get_surface() is not None else False
+pygame.font.init()
 
 # set up clock for limiting framerate and getting dt
 clock = pygame.time.Clock()
@@ -26,7 +28,7 @@ dt = 0.0
 states = utils.Stack()  # Stack that holds all the States
 state_data = dict(screen=screen, states=states)
 states.push(GameState(state_data))
-
+previous_state = states.top()
 
 # ====== Main Game Loop ======
 
@@ -36,9 +38,9 @@ while running:
 
     # Update
     for event in pygame.event.get():
-        states.top().update_events(event)
         if event.type == pygame.QUIT:
             running = False
+        states.top().update_events(dt, event)
 
     if states.isEmpty() is not True:
         previous_state = states.top()
@@ -55,12 +57,12 @@ while running:
 
     # Render
 
-    screen.fill((0, 0, 0))
+    screen.fill((255, 255, 255))
 
     if not states.isEmpty():
         states.top().render()
 
     pygame.display.flip()
 
-
+pygame.font.quit()
 pygame.quit()
