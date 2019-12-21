@@ -1,4 +1,5 @@
 import pygame
+
 import utils
 from states import GameState
 
@@ -26,7 +27,7 @@ dt = 0.0
 states = utils.Stack()  # Stack that holds all the States
 state_data = dict(screen=screen, states=states)
 states.push(GameState(state_data))
-
+previous_state = states.top()
 
 # ====== Main Game Loop ======
 
@@ -36,9 +37,9 @@ while running:
 
     # Update
     for event in pygame.event.get():
-        states.top().update_events(event)
         if event.type == pygame.QUIT:
             running = False
+        states.top().update_events(dt, event)
 
     if states.isEmpty() is not True:
         previous_state = states.top()
@@ -62,5 +63,5 @@ while running:
 
     pygame.display.flip()
 
-
+pygame.font.quit()
 pygame.quit()

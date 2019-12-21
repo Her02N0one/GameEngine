@@ -12,7 +12,10 @@ class Player(utils.Entity):
     def move(self, dir_x, dir_y):
         self.set_position(self.sprite.x + dir_x, self.sprite.y + dir_y)
 
-    def update(self, dt, mouse_pos):
+    def update_events(self, dt, event):
+        pass
+
+    def update(self, dt):
         pass
 
     def render(self, target, show_hitbox=False):

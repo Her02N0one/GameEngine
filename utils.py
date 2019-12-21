@@ -34,19 +34,12 @@ class State:
         self.mousePos = pygame.Vector2()
         self.quit = False
         self.target = None
-        self.events = None
-
-    def update_events(self, events):
-        self.events = events
 
     def get_quit(self):
         return self.quit
 
     def end_state(self):
         self.quit = True
-
-    def update_mouse_positions(self):
-        self.mousePos.update(*pygame.mouse.get_pos())
 
     def on_enter(self):
         """
@@ -59,6 +52,9 @@ class State:
         Runs once every time the class leaves top of the stack
         """
         pass
+
+    def update_events(self, dt, events):
+        assert 0, "update_input not implemented"
 
     def update_input(self, dt):
         assert 0, "update_input not implemented"
@@ -104,7 +100,10 @@ class Entity:
         y = self.sprite.y
         return x, y
 
-    def update(self, dt, mousePos):
+    def update_events(self, dt, event):
+        assert 0, "update_events not implemented"
+
+    def update(self, dt):
         assert 0, "update not implemented"
 
     def render(self, target, show_hitbox=False):
