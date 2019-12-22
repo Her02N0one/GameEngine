@@ -1,18 +1,24 @@
 import pygame
 
 
-class Stack:
+class StateStack:
     def __init__(self):
         self.items = []
 
     def isEmpty(self):
         return self.items == []
 
-    def push(self, item):
-        self.items.append(item)
+    def push(self, state):
+        if self.isEmpty() is not True:
+            self.top().on_leave()
+        self.items.append(state)
+        self.top().on_enter()
 
     def pop(self):
-        return self.items.pop()
+        self.top().on_leave()
+        self.items.pop()
+        if self.isEmpty() is not True:
+            self.top().on_enter()
 
     def top(self):
         return self.items[len(self.items) - 1]
@@ -53,7 +59,7 @@ class State:
         """
         pass
 
-    def update_events(self, dt, events):
+    def update_events(self, dt, event):
         assert 0, "update_input not implemented"
 
     def update_input(self, dt):

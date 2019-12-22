@@ -1,7 +1,7 @@
 import pygame
 
 import utils
-from states import GameState
+from states import MainMenuState
 
 # gets window data from config file
 with open("config/graphics.ini", "r") as f:
@@ -19,15 +19,15 @@ else:
     pygame.display.set_caption(title)
 
 running = True if pygame.display.get_surface() is not None else False
+pygame.font.init()
 
 # set up clock for limiting framerate and getting dt
 clock = pygame.time.Clock()
 dt = 0.0
 
-states = utils.Stack()  # Stack that holds all the States
+states = utils.StateStack()  # Stack that holds all the States
 state_data = dict(screen=screen, states=states)
-states.push(GameState(state_data))
-previous_state = states.top()
+states.push(MainMenuState(state_data))
 
 # ====== Main Game Loop ======
 
@@ -35,33 +35,28 @@ while running:
     clock.tick(fps)
     dt = clock.get_time() / 1000
 
-    # Update
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        states.top().update_events(dt, event)
 
+    # Update
     if states.isEmpty() is not True:
-        previous_state = states.top()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            states.top().update_events(dt, event)
+
         states.top().update(dt)
-        if previous_state != states.top():
-            states.top().on_enter()
-            previous_state.on_leave()
         if states.top().get_quit():
             states.top().end_state()
             states.pop()
     else:
-        previous_state.on_leave()
         running = False
 
     # Render
 
-    screen.fill((0, 0, 0))
+    screen.fill((255, 255, 255))
 
     if not states.isEmpty():
         states.top().render()
 
     pygame.display.flip()
 
-pygame.font.quit()
 pygame.quit()
