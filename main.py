@@ -19,6 +19,7 @@ else:
     pygame.display.set_caption(title)
 
 running = True if pygame.display.get_surface() is not None else False
+pygame.font.init()
 
 # set up clock for limiting framerate and getting dt
 clock = pygame.time.Clock()
@@ -56,7 +57,7 @@ while running:
 
     # Render
 
-    screen.fill((0, 0, 0))
+    screen.fill((255, 255, 255))
 
     if not states.isEmpty():
         states.top().render()
