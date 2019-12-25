@@ -35,7 +35,6 @@ while running:
     clock.tick(fps)
     dt = clock.get_time() / 1000
 
-
     # Update
     if states.isEmpty() is not True:
         for event in pygame.event.get():

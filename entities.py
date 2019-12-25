@@ -18,5 +18,4 @@ class Player(utils.Entity):
         pass
 
     def render(self, target, show_hitbox=False):
-
         target.blit(self.image, self.sprite)
