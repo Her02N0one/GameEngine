@@ -1,5 +1,7 @@
 import pygame
 
+import constants
+
 
 class StateStack:
     def __init__(self):
@@ -37,6 +39,10 @@ class State:
         self.screen = state_data["screen"]
         self.states = state_data["states"]
 
+        self.all_sprites = constants.all_sprites
+        self.entities = constants.entities
+        self.tiles = constants.tiles
+
         self.mousePos = pygame.Vector2()
         self.quit = False
         self.target = None
@@ -72,45 +78,22 @@ class State:
         assert 0, "render not implemented"
 
 
-class Entity:
+class Tile(pygame.sprite.Sprite, object):
 
-    def __init__(self):
-        self.sprite = pygame.Rect(0, 0, 0, 0)
-        self.image = pygame.Surface((0, 0))
-
-    def set_texture(self, texture):
-        self.image = pygame.image.load(texture)
-        self.set_size(*self.image.get_size())
-
-    def set_position(self, x, y):
-        self.sprite.x = x
-        self.sprite.y = y
-
-    def set_size(self, width, height):
-        self.image = pygame.transform.scale(self.image, (width, height))
-        self.sprite.width = width
-        self.sprite.height = height
-
-    def scale(self, scale_factor):
-        s_width = int(self.sprite.width * scale_factor)
-        s_height = int(self.sprite.height * scale_factor)
-        self.set_size(s_width, s_height)
-
-    def get_size(self):
-        width = self.sprite.width
-        height = self.sprite.height
-        return width, height
-
-    def get_position(self):
-        x = self.sprite.x
-        y = self.sprite.y
-        return x, y
-
-    def update_events(self, dt, event):
-        assert 0, "update_events not implemented"
+    def __init__(self, texture=None, row=0, col=0, width=constants.TILE_SIZE, height=constants.TILE_SIZE,
+                 color=(0, 255, 0)):
+        self.groups = constants.all_sprites, constants.tiles
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        self.image = pygame.Surface((width, height))
+        self.rect = self.image.get_rect()
+        self.color = color
+        self.image.fill(color)
+        self.y = self.rect.y = row * constants.TILE_SIZE
+        self.x = self.rect.x = col * constants.TILE_SIZE
+        # self.image = pygame.image.load(texture)
 
     def update(self, dt):
-        assert 0, "update not implemented"
+        pass
 
-    def render(self, target, show_hitbox=False):
-        assert 0, "render not implemented"
+    def render(self, target):
+        target.blit(self.image, self.rect)
